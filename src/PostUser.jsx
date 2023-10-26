@@ -1,31 +1,13 @@
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
+import { UserService } from "./Services/UserServices";
 
 const PostUser = () => {
   const { control, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
-    try {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/users",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-
-      if (response.ok) {
-        reset();
-        console.log("User created successfully.");
-      } else {
-        console.error("Error creating user. Please try again.");
-      }
-    } catch (error) {
-      console.error("An error occurred. Please try again.");
-    }
+    reset();
+    UserService.createUser(data)
   };
 
   return (

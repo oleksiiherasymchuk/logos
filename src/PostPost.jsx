@@ -1,81 +1,52 @@
-import React, { useState } from "react";
+import React from "react";
+import { useForm, Controller } from "react-hook-form";
+import { PostsService } from "./Services/CommentServices";
 
 const PostPost = () => {
-  const [errorMassage, setErrorMessage] = useState('')
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset
+  } = useForm();
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
-  const handleFormChange = (key, value) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [key]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/comments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setErrorMessage('Comment created successfully.');
-        setFormData({
-          name: '',
-          email: '',
-          body: '',
-        });
-      } else {
-        setErrorMessage('Error creating comment. Please try again.');
-      }
-    } catch (error) {
-      setErrorMessage('An error occurred. Please try again.');
-    }
+  const onSubmit = (data) => {
+    reset();
+    PostsService.postComment(data)
   };
 
   return (
     <div className="Form">
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          onChange={(event) => {
-            handleFormChange("name", event.target.value);
-          }}
-          value={formData.name}
-        />
-
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          onChange={(event) => {
-            handleFormChange("email", event.target.value);
-          }}
-          value={formData.email}
-        />
-
-        <label htmlFor="body">Password:</label>
-        <input
-          type="text"
-          onChange={(event) => {
-            handleFormChange("password", event.target.value);
-          }}
-          value={formData.body}
-        />
-
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <label htmlFor="name">Name:</label>
+          <Controller
+            name="name"
+            control={control}
+            defaultValue=""
+            render={({ field }) => <input {...field} type="text" />}
+          />
+        </div>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <Controller
+            name="email"
+            control={control}
+            defaultValue=""
+            render={({ field }) => <input {...field} type="email" />}
+          />
+        </div>
+        <div>
+          <label htmlFor="body">Comment:</label>
+          <Controller
+            name="body"
+            control={control}
+            defaultValue=""
+            render={({ field }) => <input {...field} type="text" />}
+          />
+        </div>
         <button type="submit">Send comment</button>
       </form>
-      {errorMassage}
     </div>
   );
 };
