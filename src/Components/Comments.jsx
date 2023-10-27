@@ -5,8 +5,7 @@ class Comments extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: [],
-      post: "",
+      comments: []
     };
   }
 
@@ -20,15 +19,6 @@ class Comments extends React.Component {
     }
   }
 
-  async getPostByID(postId) {
-    try {
-      const postID = await PostsService.getPostById(postId);
-      console.log("postId", postID);
-      alert(postID.title);
-    } catch (error) {
-      console.error("Error fetching comments:", error);
-    }
-  }
 
   render() {
     return (
@@ -36,7 +26,7 @@ class Comments extends React.Component {
         <h1>Comments</h1>
         <ol>
           {this.state.comments.map((comment) => (
-            <li key={comment.id} onClick={() => this.getPostByID(comment.id)}>
+            <li key={comment.id}>
               {comment.body}
             </li>
           ))}

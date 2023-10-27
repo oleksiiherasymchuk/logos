@@ -1,18 +1,18 @@
 import React from "react";
 import { PostsService } from "../Services/CommentServices";
 
-class Todos extends React.Component {
+class Posts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: [],
+      posts: [],
     };
   }
 
   async componentDidMount() {
     try {
-      const todos = await PostsService.getTodos();
-      this.setState({ todos });
+      const posts = await PostsService.getPosts();
+      this.setState({ posts });
     } catch (error) {
       console.error('Error fetching comments:', error);
     }
@@ -21,10 +21,10 @@ class Todos extends React.Component {
   render() {
     return (
       <div>
-        <h1>todos</h1>
+        <h1>posts</h1>
         <ol>
-          {this.state.todos.map((todo) => (
-            <li key={todo.id}>{todo.title}</li>
+          {this.state.posts.map((post) => (
+            <li key={post.id}>{post.title}</li>
           ))}
         </ol>
       </div>
@@ -32,4 +32,4 @@ class Todos extends React.Component {
   }
 }
 
-export default Todos;
+export default Posts;
