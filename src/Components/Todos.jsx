@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import style from "./Components.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { PostsService } from "../Services/CommentServices";
 import { getPostsThunk } from "../redux/userReducer";
 
 const Todos = () => {
@@ -10,7 +9,7 @@ const Todos = () => {
 
   useEffect(() => {
     dispatch(getPostsThunk())
-  }, []);
+  }, [dispatch]);
 
   return <div className={style.child}>
     <h1>Todos</h1>
