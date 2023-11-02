@@ -2,12 +2,14 @@ import React, { useEffect } from "react";
 import style from "./Components.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { PostsService } from "../Services/CommentServices";
+import { getCommentsThunk } from "../redux/userReducer";
 
 const Comments = () => {
   const comments = useSelector((store) => store.user.comments);
   const dispatch = useDispatch();
+  
   useEffect(() => {
-    PostsService.getComments(dispatch);
+    dispatch(getCommentsThunk())
   }, [dispatch]);
 
   const handleCommentClick = (commentId) => {

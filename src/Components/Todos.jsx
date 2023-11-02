@@ -2,14 +2,15 @@ import React, { useEffect } from "react";
 import style from "./Components.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { PostsService } from "../Services/CommentServices";
+import { getPostsThunk } from "../redux/userReducer";
 
 const Todos = () => {
   const posts = useSelector((store) => store.user.posts);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    PostsService.getPosts(dispatch);
-  }, [dispatch]);
+    dispatch(getPostsThunk())
+  }, []);
 
   return <div className={style.child}>
     <h1>Todos</h1>

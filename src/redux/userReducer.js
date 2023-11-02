@@ -1,3 +1,5 @@
+import { PostsService } from "../Services/CommentServices";
+
 const initialState = {
   posts: [],
   albums: [],
@@ -41,7 +43,10 @@ export const userReducer = (state = initialState, action) => {
 
 export const userActions = {
   setPosts: (posts) => ({ type: userActionTypes.SET_POSTS, payload: posts }),
-  setAlbums: (albums) => ({ type: userActionTypes.SET_ALBUMS, payload: albums }),
+  setAlbums: (albums) => ({
+    type: userActionTypes.SET_ALBUMS,
+    payload: albums,
+  }),
   setComments: (comments) => ({
     type: userActionTypes.SET_COMMENTS,
     payload: comments,
@@ -52,8 +57,20 @@ export const userActions = {
   // }),
 };
 
-// export const getUserStatus = (userId) => async (dispatch) => {
-//   const response = await profileAPI.getStatus(userId);
-//   // console.log(response);
-//   dispatch(setStatus(response.data));
-// };
+export const getPostsThunk = () => async (dispatch) => {
+  // try {
+  // const response = await PostsService.getPosts()
+  // dispatch(userActions.setPosts(response.data))
+  PostsService.getPosts(dispatch);
+  // } catch (error) {
+  //   console.log(error);
+  // }
+};
+
+export const getAlbumsThunk = () => async (dispatch) => {
+  PostsService.getAlbums(dispatch);
+};
+
+export const getCommentsThunk = () => async (dispatch) => {
+  PostsService.getComments(dispatch);
+};
