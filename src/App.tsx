@@ -3,8 +3,8 @@ import React from "react";
 import Todos from "./Components/Todos";
 import Comments from "./Components/Comments";
 import Albums from "./Components/Albums";
-import Header from "./Components/Header";
 import { Outlet, createBrowserRouter } from "react-router-dom";
+import Header from "./Components/Header";
 
 export const router = createBrowserRouter([
   {
@@ -28,11 +28,11 @@ export const router = createBrowserRouter([
 
 ]);
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <div className="App">
       <Header />
-      {/* <Outlet /> */}
+      <Outlet />
     </div>
   );
 };
