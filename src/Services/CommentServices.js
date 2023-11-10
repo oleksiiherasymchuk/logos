@@ -33,3 +33,16 @@ export const PostsService = {
     }
   },
 };
+
+export const PostsRTKService = {
+  getComments: () => {
+    return axios.get('https://jsonplaceholder.typicode.com/comments')
+  },
+  getAlbums: () => {
+    return axios.get('https://jsonplaceholder.typicode.com/albums')
+  },
+  getPosts: () => {
+    return axios.get('https://jsonplaceholder.typicode.com/posts')
+  },
+  
+};
